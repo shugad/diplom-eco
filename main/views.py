@@ -30,8 +30,8 @@ class EditorChartView(TemplateView):
             coefs_air_2, stats_air_2 = P.polyfit(x, y, 2, full=True)
             coefs_air_3, stats_air_3 = P.polyfit(x, y, 3, full=True)
 
-            air_sum_squared_2 = stats_air_2[0][0]
-            air_sum_squared_3 = stats_air_3[0][0]
+            air_sum_squared_2 = stats_air_2[0]
+            air_sum_squared_3 = stats_air_3[0]
 
             if air_sum_squared_2 <= air_sum_squared_3:
                 coefs_air = coefs_air_2
