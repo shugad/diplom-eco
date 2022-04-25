@@ -16,13 +16,11 @@ class EditorChartView(TemplateView):
         qs = Region.objects.all().values()
         data = pd.DataFrame(qs)
 
-        context["years"] = data
-
         values_air = dict()
         values_water = dict()
         years = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
 
-        """for i in data["region_name"]:
+        for i in data["region_name"]:
             reg_data = data[data["region_name"] == i].sort_values(by='year', ascending=True)
             reg_data_val_air = list(reg_data['percent_air_pollution'])
 
@@ -137,7 +135,7 @@ class EditorChartView(TemplateView):
         context["air_vals_list"] = air_vals
         context["water_vals_list"] = water_vals
         context["years"] = years
-        context["stats"] = stats_water_2[0][0]"""
+        context["stats"] = stats_water_2[0][0]
 
         ######
         """amur_obl = data[data["region_name"] == "Амурская область"].sort_values(by='year', ascending=True)
