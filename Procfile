@@ -1,0 +1,1 @@
+web: gunicorn ecology.wsgi --log-file -

@@ -1,0 +1,680 @@
+{% extends 'main/base.html'%}
+{%block title%} Экологическая обстановка в регионах {%endblock title%}
+{%block content%}
+  <style type="text/css">
+    .container {
+      width: 800px;
+      height: 300px;
+      padding: 20px;
+    }
+    select {
+    margin-left: 830px;
+    }
+
+    p {
+    margin-left: 580px;
+    margin-top: 500px;
+    font-size: 12px;
+    }
+  </style>
+<div class="container">
+    <select onchange="updateCity(this)">
+        <option selected disabled>Выберите субъект</option>
+        <option id='Белгородская область'>Белгородская область</option>
+        <option id='Брянская область'>Брянская область</option>
+        <option id='Владимирская область'>Владимирская область</option>
+        <option id='Воронежская область'>Воронежская область</option>
+        <option id='Ивановская область'>Ивановская область</option>
+        <option id='Калужская область'>Калужская область</option>
+        <option id='Костромская область'>Костромская область</option>
+        <option id='Курская область'>Курская область</option>
+        <option id='Липецкая область'>Липецкая область</option>
+        <option id='Московская область'>Московская область</option>
+        <option id='Орловская область'>Орловская область</option>
+        <option id='Рязанская область'>Рязанская область</option>
+        <option id='Смоленская область'>Смоленская область</option>
+        <option id='Тамбовская область'>Тамбовская область</option>
+        <option id='Тверская область'>Тверская область</option>
+        <option id='Тульская область'>Тульская область</option>
+        <option id='Ярославская область'>Ярославская область</option>
+        <option id='Москва'>Москва</option>
+        <option id='Республика Карелия'>Республика Карелия</option>
+        <option id='Республика Коми'>Республика Коми</option>
+        <option id='Архангельская область'>Архангельская область</option>
+        <option id='Вологодская область'>Вологодская область</option>
+        <option id='Калининградская область'>Калининградская область</option>
+        <option id='Ленинградская область '>Ленинградская область </option>
+        <option id='Мурманская область '>Мурманская область </option>
+        <option id='Новгородская область '>Новгородская область </option>
+        <option id='Псковская область'>Псковская область</option>
+        <option id='Санкт-Петербург'>Санкт-Петербург</option>
+        <option id='Республика Адыгея'>Республика Адыгея</option>
+        <option id='Республика Калмыкия'>Республика Калмыкия</option>
+        <option id='Республика Крым'>Республика Крым</option>
+        <option id='Краснодарский край '>Краснодарский край </option>
+        <option id='Астраханская область'>Астраханская область</option>
+        <option id='Волгоградская область'>Волгоградская область</option>
+        <option id='Ростовская область'>Ростовская область</option>
+        <option id='Севастополь'>Севастополь</option>
+        <option id='Республика Дагестан'>Республика Дагестан</option>
+        <option id='Республика Ингушетия'>Республика Ингушетия</option>
+        <option id='Кабардино-Балкарская Республика'>Кабардино-Балкарская Республика</option>
+        <option id='Карачаево-Черкесская Республика'>Карачаево-Черкесская Республика</option>
+        <option id='Республика Северная Осетия — Алания'>Республика Северная Осетия — Алания</option>
+        <option id='Чеченская Республика'>Чеченская Республика</option>
+        <option id='Ставропольский край'>Ставропольский край</option>
+        <option id='Республика Башкортостан'>Республика Башкортостан</option>
+        <option id='Республика Марий Эл'>Республика Марий Эл</option>
+        <option id='Республика Мордовия'>Республика Мордовия</option>
+        <option id='Республика Татарстан'>Республика Татарстан</option>
+        <option id='Удмуртская Республика'>Удмуртская Республика</option>
+        <option id='Чувашская Республика'>Чувашская Республика</option>
+        <option id='Пермский край'>Пермский край</option>
+        <option id='Кировская область'>Кировская область</option>
+        <option id='Нижегородская область'>Нижегородская область</option>
+        <option id='Оренбургская область'>Оренбургская область</option>
+        <option id='Пензенская область'>Пензенская область</option>
+        <option id='Самарская область'>Самарская область</option>
+        <option id='Саратовская область'>Саратовская область</option>
+        <option id='Ульяновская область'>Ульяновская область</option>
+        <option id='Курганская область'>Курганская область</option>
+        <option id='Свердловская область'>Свердловская область</option>
+        <option id='Тюменская область'>Тюменская область</option>
+        <option id='Челябинская область'>Челябинская область</option>
+        <option id='Республика Алтай'>Республика Алтай</option>
+        <option id='Республика Тыва'>Республика Тыва</option>
+        <option id='Республика Хакасия'>Республика Хакасия</option>
+        <option id='Алтайский край'>Алтайский край</option>
+        <option id='Красноярский край'>Красноярский край</option>
+        <option id='Иркутская область'>Иркутская область</option>
+        <option id='Кемеровская область'>Кемеровская область</option>
+        <option id='Новосибирская область'>Новосибирская область</option>
+        <option id='Омская область'>Омская область</option>
+        <option id='Томская область'>Томская область</option>
+        <option id='Республика Бурятия'>Республика Бурятия</option>
+        <option id='Республика Саха (Якутия)'>Республика Саха (Якутия)</option>
+        <option id='Забайкальский край'>Забайкальский край</option>
+        <option id='Камчатский край'>Камчатский край</option>
+        <option id='Приморский край'>Приморский край</option>
+        <option id='Хабаровский край'>Хабаровский край</option>
+        <option id='Амурская область'>Амурская область</option>
+        <option id='Магаданская область'>Магаданская область</option>
+        <option id='Сахалинская область'>Сахалинская область</option>
+        <option id='Еврейская автономная область'>Еврейская автономная область</option>
+        <option id='Чукотский автономный округ'>Чукотский автономный округ</option>
+    </select>
+    <canvas id="myChart" width="40" height="20"></canvas>
+    <canvas id="myChart2" width="40" height="20"></canvas>
+    </div>
+<script type="text/javascript">
+
+     const data = {
+     labels: [''],
+     datasets: [{
+          label: 'Процентная доля от общих загрязненных выбросов в атмосферу',
+          data: [],
+          backgroundColor: ["lightgray", "lightgray", "lightgray", "lightgray",
+          "lightgray", "lightgray", "lightgray", "lightgray",
+          "lightgray", "lightgray", "lightgray", "lightgray",
+          "lightgray", "lightgreen", "lightgreen"]
+      }]
+    }
+
+    const data2 = {
+     labels: [''],
+     datasets: [{
+          label: 'Процентная доля от общих выбросов загрязненных вод',
+          data: [],
+          backgroundColor: ["lightgray", "lightgray", "lightgray", "lightgray",
+          "lightgray", "lightgray", "lightgray", "lightgray",
+          "lightgray", "lightgray", "lightgray", "lightgray",
+          "lightgray", "lightgreen", "lightgreen"]
+      }]
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.querySelector('#myChart'),
+      {
+        type: 'bar',
+        data: data,
+        options: {
+        title: {
+                    display: true,
+                    text: 'Динамика процентной доли региона в выбросах в атмосферу по отношению к выбросам в Российской Федерации'
+                },
+            responsive: true,
+             scales: {
+                yAxes: [{
+                    ticks: {
+                     beginAtZero: true
+                    }
+                }]
+            }
+         }
+      }
+    );
+
+     // render init block
+    const myChart2 = new Chart(
+      document.querySelector('#myChart2'),
+      {
+        type: 'bar',
+        data: data2,
+        options: {
+        title: {
+                    display: true,
+                    text: 'Динамика процентной доли региона в выбросах загрязненных вод по отношению к выбросам в Российской Федерации'
+                },
+            responsive: true,
+             scales: {
+                yAxes: [{
+                    ticks: {
+                     beginAtZero: true
+                    }
+                }]
+            }
+         }
+      }
+    );
+
+    function updateCity(city) {
+          if (city.value === 'Белгородская область'){
+         myChart.data.datasets[0].data = {{ air_vals_list.0 }}
+         myChart.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.0 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Брянская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.1  }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.1 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Владимирская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.2 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.2 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Воронежская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.3 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.3 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Ивановская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.4 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.4 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Калужская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.5 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.5 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Костромская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.6 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.6 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Курская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.7 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.7 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Липецкая область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.8 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.8 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Московская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.9 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.9 }}
+         myChart2.data.labels = {{   years   }}
+          }
+         if (city.value === 'Орловская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.10 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.10 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Рязанская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.11 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.11 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Смоленская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.12 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.12 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Тамбовская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.13 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.13 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Тверская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.14 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.14 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Тульская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.15 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.15 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Ярославская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.16 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.16 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Москва'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.17 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.17 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Карелия'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.18 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.18 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Коми'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.19 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.19 }}
+         myChart2.data.labels = {{   years   }}
+          }
+         if (city.value === 'Архангельская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.20 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.20 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Вологодская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.21 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.21 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Калининградская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.22 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.22 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Ленинградская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.23 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.23 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Мурманская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.24 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.24 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Новгородская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.25 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.25 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Псковская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.26 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.26 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Санкт-Петербург'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.27 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.27 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Адыгея'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.28 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.28 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Калмыкия'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.29 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.29 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Крым'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.30 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.30 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Краснодарский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.31 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.31 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Астраханская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.32 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.32 }}
+         myChart2.data.labels = {{   years   }}
+          }
+         if (city.value === 'Волгоградская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.33 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.33 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Ростовская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.34 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.34 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Севастополь'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.35 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.35 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Республика Дагестан'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.36 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.36 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Ингушетия'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.37 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.37 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Кабардино-Балкарская Республика'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.38 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.38 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Карачаево-Черкесская Республика'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.39 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.39 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Северная Осетия — Алания'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.40 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.40 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Чеченская Республика'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.41 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.41 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Ставропольский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.42 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.42 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Башкортостан'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.43 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.43 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Марий Эл'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.44 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.44 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Мордовия'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.45 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.45 }}
+         myChart2.data.labels = {{   years   }}
+          }
+         if (city.value === 'Республика Татарстан'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.46 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.46 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Удмуртская Республика'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.47 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.47 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Чувашская Республика'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.48 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.48 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Пермский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.49 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.49 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Кировская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.50 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.50 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Нижегородская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.51 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.51 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Оренбургская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.52 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.52 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Пензенская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.53 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.53 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Самарская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.54 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.54 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Саратовская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.55 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.55 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Ульяновская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.56 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.56 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Курганская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.57 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.57 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Свердловская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.58 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.58 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Тюменская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.59 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.59 }}
+         myChart2.data.labels = {{   years   }}
+          }
+         if (city.value === 'Челябинская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.60 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.60 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Алтай'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.61 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.61 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Тыва'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.62 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.62 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Республика Хакасия'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.63 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.63 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Алтайский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.64 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.64 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Красноярский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.65 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.65 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Иркутская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.66 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.66 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Кемеровская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.67 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.67 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Новосибирская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.68 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.68 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Омская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.69 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.69 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Томская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.70 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.70 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Бурятия'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.71 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.71 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Республика Саха (Якутия)'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.72 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.72 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Забайкальский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.73 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.73 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Камчатский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.74 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.74 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Приморский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.75 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.75 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Хабаровский край'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.76 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.76 }}
+         myChart2.data.labels = {{   years   }}
+          }
+         if (city.value === 'Амурская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.77 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.77 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Магаданская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.78 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.78 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Сахалинская область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.79 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.79 }}
+         myChart2.data.labels = {{   years   }}
+          }
+           if (city.value === 'Еврейская автономная область'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.80 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.80 }}
+         myChart2.data.labels = {{   years   }}
+          }
+          if (city.value === 'Чукотский автономный округ'){
+         myChart.config.data.datasets[0].data = {{ air_vals_list.81 }}
+         myChart.config.data.labels = {{   years   }}
+         myChart2.data.datasets[0].data = {{ water_vals_list.81 }}
+         myChart2.data.labels = {{   years   }}
+          }
+       myChart.update();
+       myChart2.update();
+        };
+</script>
+<p>Метод предсказания значений за 2021 и 2022 год: Полином n порядка p(x) = c0 + c1*x + c2*x^2 + ... + cn*x^n</p>
+{{ stats }}
+{%endblock content%}
