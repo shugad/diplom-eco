@@ -1,0 +1,18 @@
+{% extends 'main/base.html'%}
+{%block title%} Экологическая ситуация в РФ и регионах. Статистические данные {%endblock title%}
+{%block content%}
+<style type="text/css">
+    .frame {
+      margin-left: 40px;
+      margin-top: 40px;
+    }
+ p {
+    margin-left: 400px;
+    font-size: 12px;
+    }
+  </style>
+<h2 style="text-align:center;">Экологическая ситуация в РФ и регионах. Статистические данные за 2020 год</h2>
+<iframe class="frame" src="https://datalens.yandex/5m3t8cmy4wu2x?" width="650" height="700" frameborder="0"></iframe>
+<iframe class="frame" src="https://datalens.yandex/cta2m1lxftmk4?" align="left" width="650" height="700" marginwidth="40" frameborder="0"></iframe>
+<p>Источник данных: Росстат. Основные показатели охраны окружающей среды</p>
+{%endblock content%}

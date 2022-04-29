@@ -23,6 +23,7 @@ class EditorChartView(TemplateView):
         for i in data["region_name"]:
             reg_data = data[data["region_name"] == i].sort_values(by='year', ascending=True)
             reg_data_val_air = list(reg_data['percent_air_pollution'])
+            reg_data_val_air = [round(elem, 2) for elem in reg_data_val_air]
 
             x = reg_data_val_air[:-1]
             y = reg_data_val_air[1:]
@@ -34,35 +35,24 @@ class EditorChartView(TemplateView):
             air_sum_squared_3 = stats_air_3[0]
 
             if air_sum_squared_2 <= air_sum_squared_3:
-                coefs_air = coefs_air_2
-
-                a = coefs_air[0]
-                b = coefs_air[1]
-                c = coefs_air[2]
 
                 val = reg_data_val_air[-1]
-                y1 = a + b * val + c * (val ** 2)
+                y1 = coefs_air_2[0] + coefs_air_2[1] * val + coefs_air_2[2] * (val ** 2)
                 reg_data_val_air.append(y1)
                 val = reg_data_val_air[-1]
-                y2 = a + b * val + c * (val ** 2)
+                y2 = coefs_air_2[0] + coefs_air_2[1] * val + coefs_air_2[2] * (val ** 2)
                 reg_data_val_air.append(y2)
-            else:
-                coefs_air = coefs_air_3
-                a = coefs_air[0]
-                b = coefs_air[1]
-                c = coefs_air[2]
-                d = coefs_air[3]
+
+            elif air_sum_squared_3 < air_sum_squared_2:
 
                 val = reg_data_val_air[-1]
-                y1 = a + b * val + c * (val ** 2) + d * (val ** 3)
+                y1 = coefs_air_3[0] + coefs_air_3[1] * val + coefs_air_3[2] * (val ** 2) + coefs_air_3[3] * (val ** 3)
                 reg_data_val_air.append(y1)
                 val = reg_data_val_air[-1]
-                y2 = a + b * val + c * (val ** 2) + d * (val ** 3)
+                y2 = coefs_air_3[0] + coefs_air_3[1] * val + coefs_air_3[2] * (val ** 2) + coefs_air_3[3] * (val ** 3)
                 reg_data_val_air.append(y2)
 
             reg_data_val_air = [round(elem, 2) for elem in reg_data_val_air]
-
-            temp_dict_air = dict()
 
             temp_dict_air = {"vals": reg_data_val_air}
 
@@ -80,6 +70,7 @@ class EditorChartView(TemplateView):
         for i in data["region_name"]:
             reg_data = data[data["region_name"] == i].sort_values(by='year', ascending=True)
             reg_data_val_water = list(reg_data['percent_water_pollution'])
+            reg_data_val_water = [round(elem, 2) for elem in reg_data_val_water]
 
             x = reg_data_val_water[:-1]
             y = reg_data_val_water[1:]
@@ -119,8 +110,6 @@ class EditorChartView(TemplateView):
 
             reg_data_val_water = [round(elem, 2) for elem in reg_data_val_water]
 
-            temp_dict_water = dict()
-
             temp_dict_water = {"vals": reg_data_val_water}
 
             values_water[i] = temp_dict_water
@@ -135,78 +124,13 @@ class EditorChartView(TemplateView):
         context["air_vals_list"] = air_vals
         context["water_vals_list"] = water_vals
         context["years"] = years
-        context["stats"] = stats_water_2[0][0]
-
-        ######
-        """amur_obl = data[data["region_name"] == "Амурская область"].sort_values(by='year', ascending=True)
-        amur_obl_val = list(amur_obl['percent_air_pollution'])
-        amur_obl_year = list(amur_obl['year'])
-        amur_obl_year.append(2021)
-        amur_obl_year.append(2022)
-
-        x = amur_obl_val[:-1]
-        y = amur_obl_val[1:]
-
-        coefs, stats = P.polyfit(x, y, 3, full=True)
-
-        a = coefs[0]
-        b = coefs[1]
-        c = coefs[2]
-        d = coefs[3]
-
-        val = amur_obl_val[-1]
-
-        y1 = a + b * val + c * (val ** 2) + d * (val ** 3)
-
-        amur_obl_val.append(y1)
-
-        val = amur_obl_val[-1]
-
-        y2 = a + b * val + c * (val ** 2) + d * (val ** 3)
-
-        amur_obl_val.append(y2)
-
-        amur_obl_val = [round(elem, 2) for elem in amur_obl_val]
-
-        context["amur_obl_val"] = amur_obl_val
-        context["amur_obl_year"] = amur_obl_year
-
-        ######
-        pskov_obl = data[data["region_name"] == "Псковская область"].sort_values(by='year', ascending=True)
-        pskov_obl_val = list(pskov_obl['percent_air_pollution'])
-        pskov_obl_year = list(pskov_obl['year'])
-        pskov_obl_year.append(2021)
-        pskov_obl_year.append(2022)
-
-        x = pskov_obl_val[:-1]
-        y = pskov_obl_val[1:]
-
-        coefs, stats = P.polyfit(x, y, 3, full=True)
-
-        a = coefs[0]
-        b = coefs[1]
-        c = coefs[2]
-        d = coefs[3]
-
-        val = pskov_obl_val[-1]
-
-        y1 = a + b * val + c * (val ** 2) + d * (val ** 3)
-
-        pskov_obl_val.append(y1)
-
-        val = pskov_obl_val[-1]
-
-        y2 = a + b * val + c * (val ** 2) + d * (val ** 3)
-
-        pskov_obl_val.append(y2)
-
-        pskov_obl_val = [round(elem, 2) for elem in pskov_obl_val]
-
-        context["pskov_obl_val"] = pskov_obl_val
-        context["pskov_obl_year"] = pskov_obl_year"""
 
         return context
 
 
 def home(request):
     return render(request, 'main/home.html', {})
+
+
+def tables(request):
+    return render(request, 'main/tables.html', {})
