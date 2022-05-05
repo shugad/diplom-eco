@@ -5,6 +5,8 @@ import numpy as np
 np.random.seed(123)
 import pandas as pd
 from numpy.polynomial import polynomial as P
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 
 
 # Creating views
@@ -25,7 +27,7 @@ class EditorChartView(TemplateView):
             reg_data_val_air = list(reg_data['percent_air_pollution'])
             reg_data_val_air = [round(elem, 2) for elem in reg_data_val_air]
 
-            x = reg_data_val_air[:-1]
+            """x = reg_data_val_air[:-1]
             y = reg_data_val_air[1:]
 
             coefs_air_2, stats_air_2 = P.polyfit(x, y, 2, full=True)
@@ -50,7 +52,53 @@ class EditorChartView(TemplateView):
                 reg_data_val_air.append(y1)
                 val = reg_data_val_air[-1]
                 y2 = coefs_air_3[0] + coefs_air_3[1] * val + coefs_air_3[2] * (val ** 2) + coefs_air_3[3] * (val ** 3)
-                reg_data_val_air.append(y2)
+                reg_data_val_air.append(y2)"""
+
+            x_1 = reg_data_val_air[:-2]
+            x_2 = reg_data_val_air[1:-1]
+            y = reg_data_val_air[2:]
+
+            x_pred_1 = np.array(y[-2:]).reshape(1, -1)
+
+            df = pd.DataFrame({"x_1": x_1, "x_2": x_2, "y": y}, index=range(0, len(y)))
+
+            X_train, y_train = df[["x_1", "x_2"]], df["y"]
+            poly = PolynomialFeatures(degree=2, include_bias=False)
+            poly_features = poly.fit_transform(X_train)
+            poly_features_2 = poly_features[:, :4]
+
+            poly_features_pred_1 = poly.fit_transform(x_pred_1)
+            poly_features_pred_1_2 = poly_features_pred_1[:, :4]
+
+            X_poly, y_train = poly_features_2, y_train
+
+            poly_reg_model = LinearRegression()
+            poly_reg_model.fit(X_poly, y_train)
+
+            poly_reg_y_predicted = poly_reg_model.predict(poly_features_pred_1_2)[0]
+
+            if poly_reg_y_predicted < 0:
+                poly_reg_y_predicted = y[-1]
+            else:
+                poly_reg_y_predicted = poly_reg_y_predicted
+
+            reg_data_val_air.append(poly_reg_y_predicted)
+
+            y.append(poly_reg_y_predicted)
+
+            x_pred_2 = np.array(y[-2:]).reshape(1, -1)
+
+            poly_features_pred_2 = poly.fit_transform(x_pred_2)
+            poly_features_pred_2_2 = poly_features_pred_2[:, :4]
+
+            poly_reg_y_predicted_2 = poly_reg_model.predict(poly_features_pred_2_2)[0]
+
+            if poly_reg_y_predicted_2 < 0:
+                poly_reg_y_predicted_2 = y[-1]
+            else:
+                poly_reg_y_predicted_2 = poly_reg_y_predicted_2
+
+            reg_data_val_air.append(poly_reg_y_predicted_2)
 
             reg_data_val_air = [round(elem, 2) for elem in reg_data_val_air]
 
@@ -72,7 +120,7 @@ class EditorChartView(TemplateView):
             reg_data_val_water = list(reg_data['percent_water_pollution'])
             reg_data_val_water = [round(elem, 2) for elem in reg_data_val_water]
 
-            x = reg_data_val_water[:-1]
+            """x = reg_data_val_water[:-1]
             y = reg_data_val_water[1:]
 
             coefs_water_2, stats_water_2 = P.polyfit(x, y, 2, full=True)
@@ -106,7 +154,53 @@ class EditorChartView(TemplateView):
                 reg_data_val_water.append(y1)
                 val = reg_data_val_water[-1]
                 y2 = a + b * val + c * (val ** 2) + d * (val ** 3)
-                reg_data_val_water.append(y2)
+                reg_data_val_water.append(y2)"""
+
+            x_1 = reg_data_val_water[:-2]
+            x_2 = reg_data_val_water[1:-1]
+            y = reg_data_val_water[2:]
+
+            x_pred_1 = np.array(y[-2:]).reshape(1, -1)
+
+            df = pd.DataFrame({"x_1": x_1, "x_2": x_2, "y": y}, index=range(0, len(y)))
+
+            X_train, y_train = df[["x_1", "x_2"]], df["y"]
+            poly = PolynomialFeatures(degree=2, include_bias=False)
+            poly_features = poly.fit_transform(X_train)
+            poly_features_2 = poly_features[:, :4]
+
+            poly_features_pred_1 = poly.fit_transform(x_pred_1)
+            poly_features_pred_1_2 = poly_features_pred_1[:, :4]
+
+            X_poly, y_train = poly_features_2, y_train
+
+            poly_reg_model = LinearRegression()
+            poly_reg_model.fit(X_poly, y_train)
+
+            poly_reg_y_predicted = poly_reg_model.predict(poly_features_pred_1_2)[0]
+
+            if poly_reg_y_predicted < 0:
+                poly_reg_y_predicted = y[-1]
+            else:
+                poly_reg_y_predicted = poly_reg_y_predicted
+
+            reg_data_val_water.append(poly_reg_y_predicted)
+
+            y.append(poly_reg_y_predicted)
+
+            x_pred_2 = np.array(y[-2:]).reshape(1, -1)
+
+            poly_features_pred_2 = poly.fit_transform(x_pred_2)
+            poly_features_pred_2_2 = poly_features_pred_2[:, :4]
+
+            poly_reg_y_predicted_2 = poly_reg_model.predict(poly_features_pred_2_2)[0]
+
+            if poly_reg_y_predicted_2 < 0:
+                poly_reg_y_predicted_2 = y[-1]
+            else:
+                poly_reg_y_predicted_2 = poly_reg_y_predicted_2
+
+            reg_data_val_water.append(poly_reg_y_predicted_2)
 
             reg_data_val_water = [round(elem, 2) for elem in reg_data_val_water]
 
